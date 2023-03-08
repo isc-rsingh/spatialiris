@@ -1,13 +1,18 @@
 {
     "files.associations": {
+    
         "Dockerfile*": "dockerfile",
         "iris.script": "objectscript"
       },
     "objectscript.conn" :{
       "ns": "USER",
-      "username": "rsingh",
-      "server": "iris-local",
-      "active": true
+      "username": "_SYSTEM",
+      "password": "SYS",
+      "docker-compose": {
+        "service": "iris",
+        "internalPort": 52773
+      },
+      "active": false
     },
     "sqltools.connections": [
       {

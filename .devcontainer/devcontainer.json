@@ -17,7 +17,7 @@
 	// We define and use a `server` so that (a) a user-level `objectscript.conn.server` properly doesn't override us, and (b) so InterSystems
 	// Server Manager can also be used.
 	"settings": {
-		"objectscript.conn" :{
+		"objectscript.conn": {
 			"server": "devcontainer",
 			"active": true,
 		},

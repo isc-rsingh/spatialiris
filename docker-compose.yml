@@ -7,8 +7,8 @@ services:
     restart: always
     command: --check-caps false
     ports: 
-      - 1972
-      - 52773
-      - 53773
+      - 1979:1972
+      - 52779:52773
+      - 53779:53773
     volumes:
       - ./:/irisrun/repo
