@@ -6,7 +6,7 @@ Property latitude As %Float(MAXVAL = 90.0, MINVAL = -90.0, SCALE = 6);
 
 Property longitude As %Float(MAXVAL = 180.0, MINVAL = -180.0, SCALE = 6);
 
-Method %OnNew(lat As %Float, lon As %Float) As %Status [ Private, ServerOnly = 1 ]
+Method %OnNew(lon As %Float, lat As %Float) As %Status [ Private, ServerOnly = 1 ]
 {
     set ..latitude = lat
     set ..longitude = lon
