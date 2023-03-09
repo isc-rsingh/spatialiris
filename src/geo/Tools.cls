@@ -4,7 +4,7 @@ Class geo.Tools Extends %RegisteredObject
 /// Earth's radius in km
 Parameter RADIUSEARTH = 6371;
 
-ClassMethod test()
+ClassMethod createPolygon() As geo.model.Polygon
 {
     set l = ##class(geo.model.Line).%New()
     do l.addPoint(##class(geo.model.Point).%New(0.01,0.01))
@@ -14,12 +14,25 @@ ClassMethod test()
     do l.addPoint(##class(geo.model.Point).%New(0.01,0.01))
     set polygon = ##class(geo.model.Polygon).%New()
     set polygon.line = l
-    set fp = ##class(geo.model.Point).%New(1.01,1.01)
-    #; set poly = ##class(Py.Helper).toPyListOrString(polygon.getAsList())
-    #; set point = ##class(Py.Helper).toPyListOrString(fp.getAsList())
+    Return polygon
+}
 
-    set isin = ..PointInPolygon(polygon, fp)
-    w isin
+ClassMethod test()
+{
+    set polygon = ..createPolygon()
+    set isin = ..PointInPolygon(polygon, ##class(geo.model.Point).%New(1.01,1.01))
+    w isin,!
+    set isout = ..PointInPolygon(polygon, ##class(geo.model.Point).%New(3.01,3.01))
+    w isout,!
+}
+
+ClassMethod test2()
+{
+    set polygon = ..createPolygon()
+    set isin = ..PointInPolygon2(polygon, ##class(geo.model.Point).%New(1.01,1.01))
+    w isin,!
+    set isout = ..PointInPolygon2(polygon, ##class(geo.model.Point).%New(3.01,3.01))
+    w isout,!
 }
 
 ClassMethod PointInPolygon(poly As geo.model.Polygon, pt As geo.model.Point) As %Boolean
@@ -30,11 +43,23 @@ ClassMethod PointInPolygon(poly As geo.model.Polygon, pt As geo.model.Point) As 
     set mp = ##class(%SYS.Python).Import("matplotlib")
     set mpltPath = mp.path
     set polylist = poly.getAsList()
-    set poly = ##class(Py.Helper).toPyListOrString(polylist)
+    set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
+    zw poly2
     set point = ##class(Py.Helper).toPyListOrString(pt.getAsList())
-    zw poly
-    set path = mpltPath.Path(poly)
-    Return path.contains_point(pt)
+    set path = ..invoke(mpltPath,poly2)
+    Return path."contains_point"(point)
+}
+
+ClassMethod PointInPolygon2(poly As geo.model.Polygon, pt As geo.model.Point) As %Boolean
+{
+    set mp = ##class(%SYS.Python).Import("matplotlib")
+    set mpltPath = mp.path
+    set polylist = poly.getAsList()
+    set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
+    zw poly2
+    set path = mpltPath.Path(poly2)
+    set point = ##class(Py.Helper).toPyListOrString(pt.getAsList())
+    Return path."contains_point"(point)
 }
 
 /// Computes the great-circle distance between two points on a sphere 
@@ -47,6 +72,11 @@ ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.Line) 
         if d>dist set dist = d
     }
     Return dist
+}
+
+ClassMethod invoke(ByRef mpltPath As %SYS.Python, ByRef poly2) As %SYS.Python [ Language = python ]
+{
+    return mpltPath.Path(poly2)
 }
 
 ClassMethod Distance(p1 As geo.model.Point, p2 As geo.model.Line) As %Float
