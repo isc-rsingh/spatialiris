@@ -6,7 +6,8 @@
       <Version>0.0.1</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="spatialiris.PKG"/>
+      <Resource Name="rsingh.spatialiris.geo.PKG"/>
+      <Resource Name="rsingh.spatialiris.Tools"/>
     </Module>
   </Document>
 </Export>

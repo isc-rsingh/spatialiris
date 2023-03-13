@@ -6,7 +6,7 @@ Property name As %String;
 
 // Location in decimal degrees
 
-Property location As geo.model.Point;
+Property location As rsingh.spatialiris.geo.Point;
 
 // Restrict randomly generated patients to an area around Boston, MA USA
 

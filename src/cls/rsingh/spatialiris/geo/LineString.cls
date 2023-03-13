@@ -1,31 +1,31 @@
 /// Model of a geospatial linear feature
-Class geo.model.LineString Extends AbstractGeometry
+Class rsingh.spatialiris.geo.LineString Extends AbstractGeometry
 {
 
-Property points As list Of geo.model.Point;
+Property points As list Of rsingh.spatialiris.geo.Point;
 
 /// Returns the first point of the line. Returns NULL if line has no points.
-Method startPoint() As geo.model.Point
+Method startPoint() As rsingh.spatialiris.geo.Point
 {
     if ..points.Count()<1 Return
     return ..points.GetAt(1)
 }
 
 /// Returns the last point of the line. Returns NULL if line has no points.
-Method endPoint() As geo.model.Point
+Method endPoint() As rsingh.spatialiris.geo.Point
 {
     if ..points.Count()<1 Return
     return ..points.GetAt(..points.Count())
 }
 
-Method addPoint(pt As geo.model.Point) As %Status
+Method addPoint(pt As rsingh.spatialiris.geo.Point) As %Status
 {
     do ..points.Insert(pt)
 }
 
 Method addPointFromCoords(lon As %Float, lat As %Float) As %Status
 {
-    do ..points.Insert(##class(geo.model.Point).%New(lon, lat))
+    do ..points.Insert(##class(rsingh.spatialiris.geo.Point).%New(lon, lat))
 }
 
 /// Returns the geometry as a $LIST
@@ -64,7 +64,7 @@ Method asText() As %String
 /// Returns TRUE if the LINESTRING's start and end points are coincident.
 Method isClosed() As %String
 {
-    Return ##class(geo.Tools).Identity(..startPoint(), ..endPoint())
+    Return ##class(rsingh.spatialiris.Tools).Identity(..startPoint(), ..endPoint())
 }
 
 /// Number of vertices comprising this LineString

@@ -1,63 +1,63 @@
-/// Model of a geospatial area, described as a geo.model.LineString where the area > 0 (i.e. the line has more than 2 Points), 
+/// Model of a geospatial area, described as a rsingh.spatialiris.geo.LineString where the area > 0 (i.e. the line has more than 2 Points), 
 /// and the first and last Points are the same.
-Class geo.model.Polygon Extends geo.model.AbstractGeometry
+Class rsingh.spatialiris.geo.Polygon Extends rsingh.spatialiris.geo.AbstractGeometry
 {
 
-Property line As geo.model.LineString;
+Property line As rsingh.spatialiris.geo.LineString;
 
-Method intersects(geom As geo.model.AbstractGeometry) As %Boolean
+Method intersects(geom As rsingh.spatialiris.geo.AbstractGeometry) As %Boolean
 {
     set mp = ##class(%SYS.Python).Import("matplotlib")
     set mpltPath = mp.path
     set polylist = ..line.asList()
     set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
-    set path = ##class(geo.Tools).invoke(mpltPath,.poly2)
+    set path = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.poly2)
 
-    if $CLASSNAME(geom) = "geo.model.Point" {
+    if $CLASSNAME(geom) = "rsingh.spatialiris.geo.Point" {
         Return ..contains(geom)
     } else {
         set linelist = geom.asList()
         set nothing = ##class(Py.Helper).toPyListOrString(linelist,.line)
-        set linepath = ##class(geo.Tools).invoke(mpltPath,.line)
+        set linepath = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.line)
         Return path."intersects_path"(linepath)
     }
 }
 
-/// Is this geo.model.Polygon within geom?
-Method within(geom As geo.model.Polygon) As %Boolean
+/// Is this rsingh.spatialiris.geo.Polygon within geom?
+Method within(geom As rsingh.spatialiris.geo.Polygon) As %Boolean
 {
     set mp = ##class(%SYS.Python).Import("matplotlib")
     set mpltPath = mp.path
     set polylist = geom.line.asList()
     set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
-    set otherpath = ##class(geo.Tools).invoke(mpltPath,.poly2)
+    set otherpath = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.poly2)
 
     set polylist = ..line.asList()
     set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
-    set mypath = ##class(geo.Tools).invoke(mpltPath,.poly2)
+    set mypath = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.poly2)
 
     Return otherpath."contains_path"(mypath)
 }
 
-/// Is geom contained by this geo.model.Polygon?
+/// Is geom contained by this rsingh.spatialiris.geo.Polygon?
 /// Polygon contains geom if and only if no points of geom lie in the exterior of Polygon, 
 /// and at least one point of the interior of geom lies in the interior of Polygon.
-Method contains(geom As geo.model.AbstractGeometry) As %Boolean
+Method contains(geom As rsingh.spatialiris.geo.AbstractGeometry) As %Boolean
 {
     set mp = ##class(%SYS.Python).Import("matplotlib")
     set mpltPath = mp.path
     set polylist = ..line.asList()
     set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
-    set path = ##class(geo.Tools).invoke(mpltPath,.poly2)
+    set path = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.poly2)
 
-    if $CLASSNAME(geom) = "geo.model.Point" {
+    if $CLASSNAME(geom) = "rsingh.spatialiris.geo.Point" {
         set pointlist = geom.asList()
         set nothing = ##class(Py.Helper).toPyListOrString(pointlist,.point)
         Return path."contains_point"(point)
     } else {
         set linelist = geom.asList()
         set nothing = ##class(Py.Helper).toPyListOrString(linelist,.line)
-        set linepath = ##class(geo.Tools).invoke(mpltPath,.line)
+        set linepath = ##class(rsingh.spatialiris.Tools).invoke(mpltPath,.line)
         Return path."contains_path"(linepath)
     }
     Return 0
@@ -72,7 +72,7 @@ Method isClosed() As %Boolean
 Method isValid() As %Boolean
 {
     if ..line.Size < 3 Return 0
-    Return ##class(geo.Tools).Identity(..line.GetAt(1), ..line.GetAt(..line.Size))
+    Return ##class(rsingh.spatialiris.Tools).Identity(..line.GetAt(1), ..line.GetAt(..line.Size))
 }
 
 /// Returns the geometry as a $LIST
@@ -132,7 +132,7 @@ Storage Default
 </Value>
 </Data>
 <State>PolygonState</State>
-<StreamLocation>^geo.model.PolygonS</StreamLocation>
+<StreamLocation>^rsingh.spatialiris.geo.PolygonS</StreamLocation>
 <Type>%Storage.Serial</Type>
 }
 

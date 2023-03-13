@@ -1,4 +1,4 @@
-Class geo.model.AbstractGeometry Extends %SerialObject
+Class rsingh.spatialiris.geo.AbstractGeometry Extends %SerialObject
 {
 
 // Returns the geometry as a $LIST
@@ -39,7 +39,7 @@ ClassMethod dimension() As %Integer [ Abstract ]
 
 Storage Default
 {
-<StreamLocation>^geo.model.AbstractGeometryS</StreamLocation>
+<StreamLocation>^rsingh.spatialiris.geo.AbstractGeometryS</StreamLocation>
 <Type>%Storage.Serial</Type>
 }
 

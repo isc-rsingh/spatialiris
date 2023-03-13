@@ -6,15 +6,15 @@ Many of these operations match those found in PostGIS, but the selection here is
 
 ## Classes
 
-### geo.model.Point
+### rsingh.spatialiris.geo.Point
 
 A Point is a 0-dimensional geometry that represents a single location in coordinate space.
 
-### geo.model.LineString
+### rsingh.spatialiris.geo.LineString
 
 A LineString is a 1-dimensional line formed by a contiguous sequence of line segments. Each line segment is defined by two points, with the end point of one segment forming the start point of the next segment.
 
-### geo.model.Polygon
+### rsingh.spatialiris.geo.Polygon
 
 A Polygon is a 2-dimensional planar region, delimited by an exterior boundary. Each boundary is a LineString for which the first and last points must be equal, and the line must not self-intersect.
 
@@ -42,41 +42,41 @@ Returns the OGC Well-Known Text (WKT) representation of the geometry/geography
 
 Returns a geometry as a GeoJSON "feature" (See the [GeoJSON specifications RFC 7946](https://tools.ietf.org/html/rfc7946)).
 
-### Implemented by geo.model.Point
+### Implemented by rsingh.spatialiris.geo.Point
 
 `pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean`
 
 Returns true if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`.
 
-`distance(geo.model.Point) returns %Integer`
+`distance(rsingh.spatialiris.geo.Point) returns %Integer`
 
 Returns the minimum 2D Cartesian (planar) distance between two Points, in kilometers
 
-### Implemented by geo.model.Line
+### Implemented by rsingh.spatialiris.geo.Line
 
-`startPoint() returns geo.model.Point`
+`startPoint() returns rsingh.spatialiris.geo.Point`
 
 Returns the first point of a LineString.
 
-`endPoint() returns geo.model.Point`
+`endPoint() returns rsingh.spatialiris.geo.Point`
 
 Returns the last point of a LineString.
 
-### Implemented by geo.model.Polygon
+### Implemented by rsingh.spatialiris.geo.Polygon
 
 `isClosed() returns %Boolean`
 
 Returns TRUE if the Polygon's start and end points are coinciden
 
-`contains(geo.model.AbstractGeometry) returns %Boolean`
+`contains(rsingh.spatialiris.geo.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if and only if no points of the passed geometry lie in the exterior of Polygon, and at least one point of the interior of the geometry lies in the interior of Polygon.
 
-`intersects(geo.model.AbstractGeometry) returns %Boolean`
+`intersects(rsingh.spatialiris.geo.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if any point of the passed geometry falls within the polygon.
 
-`within(geo.model.Polygon) returns %Boolean`
+`within(rsingh.spatialiris.geo.Polygon) returns %Boolean`
 
 Returns TRUE if all points of the passed geometry fall within the polygon.
 

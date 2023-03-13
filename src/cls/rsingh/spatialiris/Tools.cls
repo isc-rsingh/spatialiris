@@ -1,10 +1,10 @@
-Class geo.Tools Extends %RegisteredObject
+Class rsingh.spatialiris.Tools Extends %RegisteredObject
 {
 
 /// Earth's radius in km
 Parameter RADIUSEARTH = 6371;
 
-ClassMethod PointInPolygon(poly As geo.model.Polygon, pt As geo.model.Point) As %Boolean
+ClassMethod PointInPolygon(poly As rsingh.spatialiris.geo.Polygon, pt As rsingh.spatialiris.geo.Point) As %Boolean
 {
     #; https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python
     #; https://matplotlib.org/stable/api/path_api.html
@@ -26,7 +26,8 @@ ClassMethod invoke(ByRef mpltPath As %SYS.Python, ByRef poly2) As %SYS.Python [ 
 
 /// Computes the great-circle distance between a point and the closest point to it on a line
 /// returns: distance in kilometers 
-ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.LineString) As %Float
+/// NOTE: This is WIP. Currently inaccurate!
+ClassMethod DistancePointandLine(pt As rsingh.spatialiris.geo.Point, line As rsingh.spatialiris.geo.LineString) As %Float
 {
     set dist = 0
     for i = 2:1:line.points.Count() {
@@ -38,7 +39,7 @@ ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.LineSt
 
 /// Computes the great-circle distance between two points on a sphere 
 /// returns: distance in kilometers 
-ClassMethod Distance(p1 As geo.model.Point, p2 As geo.model.Point) As %Float
+ClassMethod Distance(p1 As rsingh.spatialiris.geo.Point, p2 As rsingh.spatialiris.geo.Point) As %Float
 {
     Set lat1Radianos = (p1.latitude * $ZPI) / 180
     Set lng1Radianos = (p1.longitude * $ZPI) / 180
@@ -49,7 +50,7 @@ ClassMethod Distance(p1 As geo.model.Point, p2 As geo.model.Point) As %Float
 }
 
 /// Are two points identical -- have the same latitude and longitude values
-ClassMethod Identity(p1 As geo.model.Point, p2 As geo.model.Point) As %Boolean
+ClassMethod Identity(p1 As rsingh.spatialiris.geo.Point, p2 As rsingh.spatialiris.geo.Point) As %Boolean
 {
     Return (p1.latitude = p2.latitude) && (p1.longitude = p2.longitude)
 }

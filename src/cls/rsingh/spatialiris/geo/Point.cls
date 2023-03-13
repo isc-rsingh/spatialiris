@@ -1,5 +1,5 @@
 /// Model of a geospatial location
-Class geo.model.Point Extends AbstractGeometry
+Class rsingh.spatialiris.geo.Point Extends AbstractGeometry
 {
 
 Property latitude As %Float(MAXVAL = 90.0, MINVAL = -90.0, SCALE = 6);
@@ -10,20 +10,20 @@ Property longitude As %Float(MAXVAL = 180.0, MINVAL = -180.0, SCALE = 6);
 /// radius: measured in kilometers
 Method insideCircle(centerX As %Float, centerY As %Float, radius As %Float) As %Boolean
 {
-    set cpoint = ##class(geo.model.Point).%New(centerX, centerY)
+    set cpoint = ##class(rsingh.spatialiris.geo.Point).%New(centerX, centerY)
     Return '(..distance(cpoint)>radius)
 }
 
 /// Computes the great-circle distance between two points on a sphere 
 /// returns: distance in kilometers 
-Method distance(p1 As geo.model.Point) As %Float
+Method distance(p1 As rsingh.spatialiris.geo.Point) As %Float
 {
     Set lat1Radianos = (p1.latitude * $ZPI) / 180
     Set lng1Radianos = (p1.longitude * $ZPI) / 180
     Set lat2Radianos = (..latitude * $ZPI) / 180
     Set lng2Radianos = (..longitude * $ZPI) / 180
     // Haversine formula
-    Return ($ZARCCOS((($ZCOS(lat1Radianos) * $ZCOS(lng1Radianos)) * ($ZCOS(lat2Radianos) * $ZCOS(lng2Radianos))) + ($ZCOS(lat1Radianos) * $ZSIN(lng1Radianos) * $ZCOS(lat2Radianos) * $ZSIN(lng2Radianos)) + ($ZSIN(lat1Radianos) * $ZSIN(lat2Radianos))) * (##class(geo.Tools).#RADIUSEARTH))
+    Return ($ZARCCOS((($ZCOS(lat1Radianos) * $ZCOS(lng1Radianos)) * ($ZCOS(lat2Radianos) * $ZCOS(lng2Radianos))) + ($ZCOS(lat1Radianos) * $ZSIN(lng1Radianos) * $ZCOS(lat2Radianos) * $ZSIN(lng2Radianos)) + ($ZSIN(lat1Radianos) * $ZSIN(lat2Radianos))) * (##class(rsingh.spatialiris.Tools).#RADIUSEARTH))
 }
 
 Method %OnNew(lon As %Float, lat As %Float) As %Status [ Private, ServerOnly = 1 ]
@@ -81,7 +81,7 @@ Storage Default
 </Value>
 </Data>
 <State>PointState</State>
-<StreamLocation>^geo.model.PointS</StreamLocation>
+<StreamLocation>^rsingh.spatialiris.geo.PointS</StreamLocation>
 <Type>%Storage.Serial</Type>
 }
 
