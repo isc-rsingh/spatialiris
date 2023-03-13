@@ -22,61 +22,61 @@ A Polygon is a 2-dimensional planar region, delimited by an exterior boundary. E
 
 ### Implemented by all geometry types
 
-#### dimension() returns %Integer
+`dimension() returns %Integer`
 
 Return the topological dimension of this Geometry object -- 0 for POINT, 1 for LINESTRING, 2 for POLYGON.
 
-#### geometryType() returns %String
+`geometryType() returns %String`
 
-Returns the type of the geometry as a string. Eg: 'LINESTRING', 'POLYGON', 'POINT'.
+Returns the type of the geometry -- 'LINESTRING', 'POLYGON', or 'POINT'.
 
-#### numPoints() returns %Integer
+`numPoints() returns %Integer`
 
 Return the number of points in a geometry
 
-#### asText() returns %String
+`asText() returns %String`
 
 Returns the OGC Well-Known Text (WKT) representation of the geometry/geography
 
-#### asGeoJSON() returns %JSON
+`asGeoJSON() returns %JSON`
 
 Returns a geometry as a GeoJSON "feature" (See the [GeoJSON specifications RFC 7946](https://tools.ietf.org/html/rfc7946)).
 
 ### Implemented by geo.model.Point
 
-#### pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean
+`pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean`
 
 Returns true if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`.
 
-#### distance(geo.model.Point) returns %Integer
+`distance(geo.model.Point) returns %Integer`
 
 Returns the minimum 2D Cartesian (planar) distance between two Points, in kilometers
 
 ### Implemented by geo.model.Line
 
-#### startPoint() returns geo.model.Point
+`startPoint() returns geo.model.Point`
 
 Returns the first point of a LineString.
 
-#### endPoint() returns geo.model.Point
+`endPoint() returns geo.model.Point`
 
 Returns the last point of a LineString.
 
 ### Implemented by geo.model.Polygon
 
-#### isClosed() returns %Boolean
+`isClosed() returns %Boolean`
 
 Returns TRUE if the Polygon's start and end points are coinciden
 
-#### contains(geo.model.AbstractGeometry) returns %Boolean
+`contains(geo.model.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if and only if no points of the passed geometry lie in the exterior of Polygon, and at least one point of the interior of the geometry lies in the interior of Polygon.
 
-#### intersects(geo.model.AbstractGeometry) returns %Boolean
+`intersects(geo.model.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if any point of the passed geometry falls within the polygon.
 
-#### within(geo.model.Polygon) returns %Boolean
+`within(geo.model.Polygon) returns %Boolean`
 
 Returns TRUE if all points of the passed geometry fall within the polygon.
 
