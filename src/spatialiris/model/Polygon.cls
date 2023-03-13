@@ -53,7 +53,6 @@ Method contains(geom As geo.model.AbstractGeometry) As %Boolean
     if $CLASSNAME(geom) = "geo.model.Point" {
         set pointlist = geom.asList()
         set nothing = ##class(Py.Helper).toPyListOrString(pointlist,.point)
-        #; zw point
         Return path."contains_point"(point)
     } else {
         set linelist = geom.asList()
@@ -62,6 +61,11 @@ Method contains(geom As geo.model.AbstractGeometry) As %Boolean
         Return path."contains_path"(linepath)
     }
     Return 0
+}
+
+Method isClosed() As %Boolean
+{
+    Return ..isValid()
 }
 
 /// Checks to see if conditions are true for this line to be a polygon
