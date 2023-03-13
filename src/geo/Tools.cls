@@ -4,37 +4,6 @@ Class geo.Tools Extends %RegisteredObject
 /// Earth's radius in km
 Parameter RADIUSEARTH = 6371;
 
-ClassMethod createPolygon() As geo.model.Polygon
-{
-    set l = ##class(geo.model.Line).%New()
-    do l.addPoint(##class(geo.model.Point).%New(0.01,0.01))
-    do l.addPoint(##class(geo.model.Point).%New(2.01,0.01))
-    do l.addPoint(##class(geo.model.Point).%New(2.01,2.01))
-    do l.addPoint(##class(geo.model.Point).%New(0.01,2.01))
-    do l.addPoint(##class(geo.model.Point).%New(0.01,0.01))
-    set polygon = ##class(geo.model.Polygon).%New()
-    set polygon.line = l
-    Return polygon
-}
-
-ClassMethod test()
-{
-    set polygon = ..createPolygon()
-    set isin = ..PointInPolygon(polygon, ##class(geo.model.Point).%New(1.01,1.01))
-    w isin,!
-    set isout = ..PointInPolygon(polygon, ##class(geo.model.Point).%New(3.01,3.01))
-    w isout,!
-}
-
-ClassMethod test2()
-{
-    set polygon = ..createPolygon()
-    set isin = ..PointInPolygon2(polygon, ##class(geo.model.Point).%New(1.01,1.01))
-    w isin,!
-    set isout = ..PointInPolygon2(polygon, ##class(geo.model.Point).%New(3.01,3.01))
-    w isout,!
-}
-
 ClassMethod PointInPolygon(poly As geo.model.Polygon, pt As geo.model.Point) As %Boolean
 {
     #; https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python
@@ -42,29 +11,22 @@ ClassMethod PointInPolygon(poly As geo.model.Polygon, pt As geo.model.Point) As 
     #; import numpy as np
     set mp = ##class(%SYS.Python).Import("matplotlib")
     set mpltPath = mp.path
-    set polylist = poly.getAsList()
+    set polylist = poly.asList()
     set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
     zw poly2
-    set point = ##class(Py.Helper).toPyListOrString(pt.getAsList())
+    set point = ##class(Py.Helper).toPyListOrString(pt.asList())
     set path = ..invoke(mpltPath,poly2)
     Return path."contains_point"(point)
 }
 
-ClassMethod PointInPolygon2(poly As geo.model.Polygon, pt As geo.model.Point) As %Boolean
+ClassMethod invoke(ByRef mpltPath As %SYS.Python, ByRef poly2) As %SYS.Python [ Language = python ]
 {
-    set mp = ##class(%SYS.Python).Import("matplotlib")
-    set mpltPath = mp.path
-    set polylist = poly.getAsList()
-    set nothing = ##class(Py.Helper).toPyListOrString(polylist,.poly2)
-    zw poly2
-    set path = mpltPath.Path(poly2)
-    set point = ##class(Py.Helper).toPyListOrString(pt.getAsList())
-    Return path."contains_point"(point)
+    return mpltPath.Path(poly2)
 }
 
-/// Computes the great-circle distance between two points on a sphere 
+/// Computes the great-circle distance between a point and the closest point to it on a line
 /// returns: distance in kilometers 
-ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.Line) As %Float
+ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.LineString) As %Float
 {
     set dist = 0
     for i = 2:1:line.points.Count() {
@@ -74,12 +36,9 @@ ClassMethod DistancePointandLine(pt As geo.model.Point, line As geo.model.Line) 
     Return dist
 }
 
-ClassMethod invoke(ByRef mpltPath As %SYS.Python, ByRef poly2) As %SYS.Python [ Language = python ]
-{
-    return mpltPath.Path(poly2)
-}
-
-ClassMethod Distance(p1 As geo.model.Point, p2 As geo.model.Line) As %Float
+/// Computes the great-circle distance between two points on a sphere 
+/// returns: distance in kilometers 
+ClassMethod Distance(p1 As geo.model.Point, p2 As geo.model.Point) As %Float
 {
     Set lat1Radianos = (p1.latitude * $ZPI) / 180
     Set lng1Radianos = (p1.longitude * $ZPI) / 180

@@ -1,4 +1,4 @@
-Class geo.TestTools Extends %UnitTest.TestCase
+Class tests.geo.TestTools Extends %UnitTest.TestCase
 {
 
 Method TestIdentity(p1 As geo.model.Point, p2 As geo.model.Point)

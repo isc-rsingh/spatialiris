@@ -1,6 +1,92 @@
-## intersystems-objectscript-template
-This is a template for InterSystems ObjectScript Github repository.
-The template goes also with a few files which let you immediately compile your ObjectScript files in InterSystems IRIS Community Edition in a docker container
+# SpatialIRIS
+
+SpatialIRIS is a library of basic geographic features -- points, lines and polygons -- that implement common spatial operations, such as those involving distances between points, and containment of a geometry within a polygon. 
+
+Many of these operations match those found in PostGIS, but the selection here is much more limited, and there are no spatial indices applied, so they will execute fairly slowly. However, this library brings useful functionality to InterSystems IRIS, such as identifying all patients with 10km of a hospital, or within a zip code or county.
+
+## Classes
+
+### geo.model.Point
+
+A Point is a 0-dimensional geometry that represents a single location in coordinate space.
+
+### geo.model.LineString
+
+A LineString is a 1-dimensional line formed by a contiguous sequence of line segments. Each line segment is defined by two points, with the end point of one segment forming the start point of the next segment.
+
+### geo.model.Polygon
+
+A Polygon is a 2-dimensional planar region, delimited by an exterior boundary. Each boundary is a LineString for which the first and last points must be equal, and the line must not self-intersect.
+
+## Functions
+
+### Implemented by all geometry types
+
+#### dimension() returns %Integer
+
+Return the topological dimension of this Geometry object -- 0 for POINT, 1 for LINESTRING, 2 for POLYGON.
+
+#### geometryType() returns %String
+
+Returns the type of the geometry as a string. Eg: 'LINESTRING', 'POLYGON', 'POINT'.
+
+#### numPoints() returns %Integer
+
+Return the number of points in a geometry
+
+#### asText() returns %String
+
+Returns the OGC Well-Known Text (WKT) representation of the geometry/geography
+
+#### asGeoJSON() returns %JSON
+
+Returns a geometry as a GeoJSON "feature" (See the [GeoJSON specifications RFC 7946](https://tools.ietf.org/html/rfc7946)).
+
+### Implemented by geo.model.Point
+
+#### pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean
+
+Returns true if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`.
+
+#### distance(geo.model.Point) returns %Integer
+
+Returns the minimum 2D Cartesian (planar) distance between two Points, in kilometers
+
+### Implemented by geo.model.Line
+
+#### startPoint() returns geo.model.Point
+
+Returns the first point of a LineString.
+
+#### endPoint() returns geo.model.Point
+
+Returns the last point of a LineString.
+
+### Implemented by geo.model.Polygon
+
+#### isClosed() returns %Boolean
+
+Returns TRUE if the Polygon's start and end points are coinciden
+
+#### contains(geo.model.AbstractGeometry) returns %Boolean
+
+Returns TRUE if and only if no points of the passed geometry lie in the exterior of Polygon, and at least one point of the interior of the geometry lies in the interior of Polygon.
+
+#### intersects(geo.model.AbstractGeometry) returns %Boolean
+
+Returns TRUE if any point of the passed geometry falls within the polygon.
+
+#### within(geo.model.Polygon) returns %Boolean
+
+Returns TRUE if all points of the passed geometry fall within the polygon.
+
+## Installation
+
+TBD
+
+## Example
+
+TBD
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
