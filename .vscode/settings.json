@@ -9,6 +9,7 @@
       "server": "iris-local",
       "active": true
     },
+    "objectscript.export.folder": "src/cls",
     "sqltools.connections": [
       {
         "namespace": "USER",
