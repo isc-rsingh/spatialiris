@@ -18,17 +18,22 @@ A LineString is a 1-dimensional line formed by a contiguous sequence of line seg
 
 A Polygon is a 2-dimensional planar region, delimited by an exterior boundary. Each boundary is a LineString for which the first and last points must be equal, and the line must not self-intersect.
 
-## Functions
+## Methods
 
 ### Implemented by all geometry types
 
-`dimension() returns %Integer`
+AbstractGeometry.**dimension()** returns `
 
-Return the topological dimension of this Geometry object -- 0 for POINT, 1 for LINESTRING, 2 for POLYGON.
+    The topological dimension of this Geometry object -- 
+    0 for POINT, 1 for LINESTRING, 2 for POLYGON.
 
-`geometryType() returns %String`
+    **Returns:** %Integer
 
-Returns the type of the geometry -- 'LINESTRING', 'POLYGON', or 'POINT'.
+AbstractGeometry.**geometryType()**
+
+    Returns the type of the geometry -- 'LINESTRING', 'POLYGON', or 'POINT'.
+
+    **Returns:** %String
 
 `numPoints() returns %Integer`
 
