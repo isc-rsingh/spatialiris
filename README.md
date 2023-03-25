@@ -74,9 +74,9 @@ AbstractGeometry.**asGeoJSON()**
 rsingh.spatialiris.geo.Point.**pointInsideCircle**(centerX As %Float, centerY As %Float, radius As %Float)
 
   Parameters: 
-  **centerX** longitude of circle's center 
-  **centerY** latitude of circle's center
-  **radius** circle's radius in km
+  - **centerX** longitude of circle's center 
+  - **centerY** latitude of circle's center
+  - **radius** circle's radius in km
 
   Returns: **%Boolean** True if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`. Otherwise False.
 
