@@ -10,9 +10,13 @@ rsingh.spatialiris.geo.**Point**
 
 A Point is a 0-dimensional geometry that represents a single location in coordinate space.
 
+---
+
 rsingh.spatialiris.geo.**LineString**
 
 A LineString is a 1-dimensional line formed by a contiguous sequence of line segments. Each line segment is defined by two points, with the end point of one segment forming the start point of the next segment.
+
+---
 
 rsingh.spatialiris.geo.**Polygon**
 
@@ -65,19 +69,34 @@ AbstractGeometry.**asGeoJSON()**
 ---
 ### Implemented by rsingh.spatialiris.geo.Point
 
-`pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean`
+---
 
-Returns true if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`.
+rsingh.spatialiris.geo.Point.**pointInsideCircle**(centerX As %Float, centerY As %Float, radius As %Float)
 
-`distance(rsingh.spatialiris.geo.Point) returns %Integer`
+  Parameters: 
+  **centerX** longitude of circle's center 
+  **centerY** latitude of circle's center
+  **radius** circle's radius in km
 
-Returns the minimum 2D Cartesian (planar) distance between two Points, in kilometers
+  Returns: **%Boolean** True if the point is inside the circle with center `center_x,center_y` and radius (in kilometers) `radius`. Otherwise False.
+
+---
+
+rsingh.spatialiris.geo.Point.**distance**(rsingh.spatialiris.geo.Point)
+
+  Computes the minimum 2D Cartesian (planar) distance between two Points, in kilometers
+
+ Returns: **%Integer** distance in km
 
 ### Implemented by rsingh.spatialiris.geo.Line
+
+---
 
 `startPoint() returns rsingh.spatialiris.geo.Point`
 
 Returns the first point of a LineString.
+
+---
 
 `endPoint() returns rsingh.spatialiris.geo.Point`
 
@@ -85,17 +104,25 @@ Returns the last point of a LineString.
 
 ### Implemented by rsingh.spatialiris.geo.Polygon
 
+---
+
 `isClosed() returns %Boolean`
 
 Returns TRUE if the Polygon's start and end points are coinciden
+
+---
 
 `contains(rsingh.spatialiris.geo.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if and only if no points of the passed geometry lie in the exterior of Polygon, and at least one point of the interior of the geometry lies in the interior of Polygon.
 
+---
+
 `intersects(rsingh.spatialiris.geo.AbstractGeometry) returns %Boolean`
 
 Returns TRUE if any point of the passed geometry falls within the polygon.
+
+---
 
 `within(rsingh.spatialiris.geo.Polygon) returns %Boolean`
 
