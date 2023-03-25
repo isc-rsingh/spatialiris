@@ -6,47 +6,63 @@ Many of these operations match those found in PostGIS, but the selection here is
 
 ## Classes
 
-### rsingh.spatialiris.geo.Point
+rsingh.spatialiris.geo.**Point**
 
 A Point is a 0-dimensional geometry that represents a single location in coordinate space.
 
-### rsingh.spatialiris.geo.LineString
+rsingh.spatialiris.geo.**LineString**
 
 A LineString is a 1-dimensional line formed by a contiguous sequence of line segments. Each line segment is defined by two points, with the end point of one segment forming the start point of the next segment.
 
-### rsingh.spatialiris.geo.Polygon
+rsingh.spatialiris.geo.**Polygon**
 
 A Polygon is a 2-dimensional planar region, delimited by an exterior boundary. Each boundary is a LineString for which the first and last points must be equal, and the line must not self-intersect.
 
-<style>
-    li {list-style-type: none;}
-</style>
 ## Methods
 
 ### Implemented by all geometry types
 
-AbstractGeometry.**dimension()** returns `
+---
 
-- The topological dimension of this Geometry object -- 0 for POINT, 1 for LINESTRING, 2 for POLYGON.
-- **Returns:** %Integer
+AbstractGeometry.**dimension()**
+
+  The topological dimension of this Geometry object -- 0 for POINT, 1 for LINESTRING, 2 for POLYGON.
+
+  **Returns:** %Integer
+
+---
 
 AbstractGeometry.**geometryType()**
 
-- Returns the type of the geometry -- 'LINESTRING', 'POLYGON', or 'POINT'
-- **Returns:** %String
+  Returns the type of the geometry -- 'LINESTRING', 'POLYGON', or 'POINT'
 
-`numPoints() returns %Integer`
+  **Returns:** %String
 
-Return the number of points in a geometry
+---
 
-`asText() returns %String`
+AbstractGeometry.**numPoints()**
 
-Returns the OGC Well-Known Text (WKT) representation of the geometry/geography
+  Return the number of points in a geometry
 
-`asGeoJSON() returns %JSON`
+  **Returns:** %Integer
 
-Returns a geometry as a GeoJSON "feature" (See the [GeoJSON specifications RFC 7946](https://tools.ietf.org/html/rfc7946)).
+---
 
+AbstractGeometry.**asText()**
+
+  Returns the OGC Well-Known Text (WKT) representation of the geometry/geography
+
+  **Returns:** %String
+
+---
+
+AbstractGeometry.**asGeoJSON()**
+
+  Returns a geometry as a GeoJSON "feature" (See the [GeoJSON specifications RFC 7946](https://tools.ietf.org/html/rfc7946)).
+
+  **Returns:** %JSON
+
+---
 ### Implemented by rsingh.spatialiris.geo.Point
 
 `pointInsideCircle(centerX As %Float, centerY As %Float, radius As %Float) returns %Boolean`
