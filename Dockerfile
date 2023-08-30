@@ -5,7 +5,7 @@ FROM $IMAGE
 WORKDIR /home/irisowner/irisbuild
 
 ARG TESTS=0
-ARG MODULE="objectscript-template"
+ARG MODULE="spatialiris"
 ARG NAMESPACE="USER"
 
 ## Embedded Python environment
