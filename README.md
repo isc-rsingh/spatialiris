@@ -128,14 +128,6 @@ Returns TRUE if any point of the passed geometry falls within the polygon.
 
 Returns TRUE if all points of the passed geometry fall within the polygon.
 
-## Installation
-
-TBD
-
-## Example
-
-TBD
-
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
 
@@ -167,6 +159,11 @@ Open IRIS terminal:
 $ docker-compose exec iris iris session iris
 USER>write ##class(dc.sample.ObjectScript).Test()
 ```
+
+## Example
+
+TBD
+
 ## How to start coding
 This repository is ready to code in VSCode with ObjectScript plugin.
 Install [VSCode](https://code.visualstudio.com/), [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) and [ObjectScript](https://marketplace.visualstudio.com/items?itemName=daimor.vscode-objectscript) plugin and open the folder in VSCode.
@@ -186,7 +183,6 @@ The script in Installer.cls will import everything you place under /src into IRI
 
 The simplest Dockerfile which starts IRIS and imports code from /src folder into it.
 Use the related docker-compose.yml to easily setup additional parametes like port number and where you map keys and host folders.
-
 
 ### .vscode/settings.json
 
